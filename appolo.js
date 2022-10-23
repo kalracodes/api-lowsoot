@@ -29,6 +29,12 @@ function dom(str) {
 }
 
 function getData() {
+    document.getElementById("emailCopy").style.opacity = 0;
+    document.getElementById("nameCopy").style.opacity = 0;
+    document.getElementById("titleCopy").style.opacity = 0;
+    document.getElementById("linkedinCopy").style.opacity = 0;
+    table_dom.innerHTML = "";
+    dom("Wait for few seconds while we generate Leads")
     arr = []
     arraydata = []
     if (company_name == "") {
@@ -58,13 +64,24 @@ function getData() {
 }
 
 function arrayLen() {
+    document.getElementById("emailCopy").style.opacity = 0;
+    document.getElementById("nameCopy").style.opacity = 0;
+    document.getElementById("titleCopy").style.opacity = 0;
+    document.getElementById("linkedinCopy").style.opacity = 0;
+    table_dom.innerHTML = ""
     dom("No of elements: " + arr.length)
 }
 
 function verifyData() {
+    document.getElementById("emailCopy").style.opacity = 0;
+    document.getElementById("nameCopy").style.opacity = 0;
+    document.getElementById("titleCopy").style.opacity = 0;
+    document.getElementById("linkedinCopy").style.opacity = 0;
+    table_dom.innerHTML = ""
     if (arr.length == 0) {
         dom("No unverified leads found:")
     }
+    dom("This process takes a mintue so settle down and don't hurry");
     for (let i = 0; i < arr.length; i++) {
         var settings = {
             "Access-Control-Allow-Origin": "*",
@@ -83,6 +100,11 @@ function verifyData() {
 }
 
 function verarrayLen() {
+    table_dom.innerHTML = ""
+    document.getElementById("emailCopy").style.opacity = 0;
+    document.getElementById("nameCopy").style.opacity = 0;
+    document.getElementById("titleCopy").style.opacity = 0;
+    document.getElementById("linkedinCopy").style.opacity = 0;
     dom("No of elements: " + arraydata.length)
 }
 
