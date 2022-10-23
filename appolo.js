@@ -6,11 +6,19 @@ const lenBtn = document.getElementById('length-btn');
 const vlenBtn = document.getElementById('vlength-btn');
 const verBtn = document.getElementById('verify-btn');
 const showBtn = document.getElementById('Show-leads');
+const email_copy = document.getElementById('emailCopy');
+const name_copy = document.getElementById('nameCopy');
+const title_copy = document.getElementById('titleCopy');
+const linkedin_copy = document.getElementById('linkedinCopy');
 const data = document.getElementById('dom');
 const table_dom = document.getElementById('table-dom');
 let company_name = "";
 var arr = []
 var arraydata = [];
+var email = [],
+    names = [],
+    title = [],
+    linkedin_url = [];
 
 file_na.onchange = () => {
     company_name = file_na.value;
@@ -54,6 +62,9 @@ function arrayLen() {
 }
 
 function verifyData() {
+    if (arr.length == 0) {
+        dom("No unverified leads found:")
+    }
     for (let i = 0; i < arr.length; i++) {
         var settings = {
             "Access-Control-Allow-Origin": "*",
@@ -76,11 +87,36 @@ function verarrayLen() {
 }
 
 function showData() {
+    email = [];
+    title = [];
+    linkedin_url = [];
+    names = [];
+    if (company_name == "") {
+        dom("Enter company name first")
+        return;
+    } else if (arraydata.length == 0) {
+        dom("No final leads found")
+        return;
+    }
     dom(company_name + "-")
+    document.getElementById("emailCopy").style.opacity = 1;
+    document.getElementById("nameCopy").style.opacity = 1;
+    document.getElementById("titleCopy").style.opacity = 1;
+    document.getElementById("linkedinCopy").style.opacity = 1;
     var html = "<table>";
+    html += "<tr><th>Email</th><th>Name</th><th>Title</th><th>linkedin_url</th><th></tr>"
     for (let i = 0; i < arraydata.length; i++) {
         html += "<tr>"
         for (let j = 0; j < arraydata[i].length; j++) {
+            if (j == 0) {
+                email.push(arraydata[i][j]);
+            } else if (j == 1) {
+                names.push(arraydata[i][j]);
+            } else if (j == 2) {
+                title.push(arraydata[i][j]);
+            } else {
+                linkedin_url.push(arraydata[i][j]);
+            }
             html += "<td>" + arraydata[i][j] + "</td>"
         }
         html += "</tr>"
@@ -89,6 +125,50 @@ function showData() {
     table_dom.innerHTML = html;
 }
 
+function getEmail() {
+    navigator.clipboard.writeText(email.join('\n'))
+        .then(() => {
+            alert("Email copied successfully")
+        })
+        .catch(() => {
+            alert("Something went wrong! Reload and try again!");
+        });
+}
+
+function getName() {
+    navigator.clipboard.writeText(names.join('\n'))
+        .then(() => {
+            alert("Name copied successfully")
+        })
+        .catch(() => {
+            alert("Something went wrong! Reload and try again!");
+        });
+}
+
+function getTitle() {
+    navigator.clipboard.writeText(title.join('\n'))
+        .then(() => {
+            alert("Title copied successfully")
+        })
+        .catch(() => {
+            alert("Something went wrong! Reload and try again!");
+        });
+}
+
+function getLinkedin() {
+    navigator.clipboard.writeText(linkedin_url.join('\n'))
+        .then(() => {
+            alert("Linkedin Url copied successfully")
+        })
+        .catch(() => {
+            alert("Something went wrong! Reload and try again!");
+        });
+}
+
+email_copy.addEventListener("click", getEmail);
+name_copy.addEventListener("click", getName);
+title_copy.addEventListener("click", getTitle);
+linkedin_copy.addEventListener("click", getLinkedin);
 getBtn.addEventListener('click', getData);
 lenBtn.addEventListener('click', arrayLen);
 vlenBtn.addEventListener('click', verarrayLen);
